@@ -9,17 +9,15 @@ import android.widget.TextView;
 
 public class MovieDetails extends AppCompatActivity {
 
-    private MovieViewModel mViewModel;
     private ImageView ivCover;
     private TextView tvTitle, tvSummary, tvCast, tvDirector;
-    private int idMovie;
+    private Movie movie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
-        mViewModel = new MovieViewModel();
-        idMovie = getIntent().getExtras().getInt("id");
+        movie = (Movie) getIntent().getExtras().getBundle("bundle").getSerializable("movie");
         initializeViews();
         loadMovieDetails();
     }
@@ -33,14 +31,12 @@ public class MovieDetails extends AppCompatActivity {
     }
 
     private void loadMovieDetails() {
-        Movie m = mViewModel.getById(idMovie);
-        // TODO: VER SI SE PUEDE LLEVAR EL IF AL VIEWMODEL
-        if (m != null) {
-            ivCover.setImageResource(m.getIdCover());
-            tvTitle.setText(m.getTitle());
-            tvSummary.setText(m.getBody());
-            tvCast.setText(m.getCast());
-            tvDirector.setText(m.getDirector());
+        if (movie != null) {
+            ivCover.setImageResource(movie.getIdCover());
+            tvTitle.setText(movie.getTitle());
+            tvSummary.setText(movie.getBody());
+            tvCast.setText(movie.getCast());
+            tvDirector.setText(movie.getDirector());
         } else {
             /* TODO: HACER OTRA ACTIVITY O LLENAR LOS VIEWS CON DATOS GENÉRICOS
              *   O HACER UN MUTABLE DATA CON ALGÚN BOOLEANO */

@@ -1,5 +1,7 @@
 package com.albornoz.albornoztp3;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
@@ -7,10 +9,11 @@ import java.util.List;
 
 public class MovieViewModel extends ViewModel {
 
-    private List<Movie> movies;
+    private MutableLiveData<List<Movie>> moviesMutable;
 
     public MovieViewModel() {
-        movies = new ArrayList<>();
+
+        List<Movie> movies = new ArrayList<>();
         movies.add(new Movie(1,
                 "Fight Club",
                 "Un oficinista insomne y un fabricante de jabón " +
@@ -75,26 +78,13 @@ public class MovieViewModel extends ViewModel {
                         "Sean Astin\nBilly Boyd\nDominic Monaghan\nJohn Rhys-Davies",
                 "Peter Jackson",
                 R.drawable.the_lord_of_the_rings));
+
+        moviesMutable = new MutableLiveData<>();
+        moviesMutable.setValue(movies);
     }
 
-    public List<Movie> getMovies() {
-        if (movies == null) {
-            movies = new ArrayList<>();
-        }
-        return movies;
+    public LiveData<List<Movie>> getMoviesMutable() {
+        return moviesMutable;
     }
 
-    public void setMovies(List<Movie> movies) {
-        this.movies = movies;
-    }
-
-    public Movie getById(int id) {
-        Movie movie = null;
-        for (Movie m: movies) {
-            if (id == m.getId()) {
-                movie = m;
-            }
-        }
-        return movie;
-    }
 }

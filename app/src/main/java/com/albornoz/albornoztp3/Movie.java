@@ -1,8 +1,9 @@
 package com.albornoz.albornoztp3;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Movie {
+public class Movie implements Serializable {
     private int id;
     private String title;
     private String body;

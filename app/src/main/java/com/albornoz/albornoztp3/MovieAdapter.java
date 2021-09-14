@@ -2,6 +2,7 @@ package com.albornoz.albornoztp3;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +47,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MiViewHolder
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, MovieDetails.class);
-                intent.putExtra("id", m.getId());
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("movie", m);
+                intent.putExtra("bundle", bundle);
                 context.startActivity(intent);
             }
         });
